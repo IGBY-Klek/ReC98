@@ -6,6 +6,14 @@ public @player_invalidate$qv
 	push	si
 	push	di
 	mov	_tile_invalidate_box.y, PLAYER_H
+	; TH10-style Point of Collection line at the top quarter of the playfield.
+	cmp	_player_pos.cur.y, ((PLAYFIELD_H / 4) shl 4)
+	ja	short @@autocollect_off
+	mov	byte ptr _items_pull_to_player, 1
+	jmp	short @@autocollect_done
+@@autocollect_off:
+	mov	byte ptr _items_pull_to_player, 0
+@@autocollect_done:
 	cmp	_miss_time, 0
 	jz	short @@alive
 	mov	_tile_invalidate_box.x, MISS_EXPLOSION_W
