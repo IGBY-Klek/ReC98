@@ -116,10 +116,15 @@ public @input_sense$qv
 	OR_INPUT_LOW	INPUT_BOMB
 
 @@q?:
-	mov	ah, byte ptr es:[KEYGROUP_2]
-	test	ah, K2_Q
-	jz	short @@esc?
-	OR_INPUT_HIGH	INPUT_Q
+    mov ah, byte ptr es:[KEYGROUP_2]
+    test    ah, K2_Q
+    jz  short @@r?
+    OR_INPUT_HIGH   INPUT_Q
+
+@@r?:
+    test    ah, K2_R
+    jz  short @@esc?
+    OR_INPUT_HIGH   INPUT_R
 
 @@esc?:
 	mov	ah, byte ptr es:[KEYGROUP_0]

@@ -20,6 +20,7 @@ static const input_t INPUT_DOWN_RIGHT   = 0x0800;
 static const input_t INPUT_CANCEL       = 0x1000;
 static const input_t INPUT_OK           = 0x2000;
 static const input_t INPUT_Q            = 0x4000;
+static const input_t INPUT_R            = 0x8000;
 
 static const input_t INPUT_MOVEMENT = (
 	INPUT_UP | INPUT_DOWN | INPUT_LEFT | INPUT_RIGHT |
