@@ -121,6 +121,12 @@ public @input_sense$qv
 	jz	short @@esc?
 	OR_INPUT_HIGH	INPUT_Q
 
+@@r?:
+	mov	ah, byte ptr es:[KEYGROUP_2]
+	test	ah, K2_R
+	jz	short @@esc?
+	OR_INPUT_HIGH	INPUT_R
+
 @@esc?:
 	mov	ah, byte ptr es:[KEYGROUP_0]
 	test	ah, K0_ESC
