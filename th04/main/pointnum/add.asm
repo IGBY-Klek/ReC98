@@ -41,7 +41,9 @@ pointnums_add proc near
 		mov	si, bx
 	else
 		mov	[bx+pointnum_t.PN_width], 0
-		mov	al, _pointnum_times_2
+		; Scores are already fixed at their final value, so don't render an
+		; additional "x2" suffix for pulled item pickups.
+		xor	al, al
 		mov	[bx+pointnum_t.PN_times_2], al
 	endif
 
