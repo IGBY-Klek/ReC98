@@ -25301,7 +25301,7 @@ loc_1DBD0:
 loc_1DBF5:
 		inc	_power
 		call	sub_11DE6
-		mov	si, 1
+		mov	si, 12800
 		jmp	loc_1DD93
 ; ---------------------------------------------------------------------------
 
@@ -25315,7 +25315,7 @@ loc_1DC04:
 loc_1DC19:
 		mov	bx, _power_overflow
 		add	bx, bx
-		mov	si, _POWER_OVERFLOW_BONUS[bx]
+		mov	si, 12800
 		cmp	_pointnum_times_2, 0
 		jz	loc_1DD93
 		inc	_item_playperf_raise
@@ -25325,7 +25325,7 @@ loc_1DC19:
 loc_1DC33:
 		cmp	[di+item_t.pos.cur.y], (52 shl 4)
 		jg	short loc_1DC58
-		mov	si, 5120
+		mov	si, 12800
 		mov	al, _item_playperf_raise
 		add	al, 4
 		mov	_item_playperf_raise, al
@@ -25344,7 +25344,7 @@ loc_1DC58:
 		sar	ax, 1
 		mov	dx, 3300
 		sub	dx, ax
-		mov	si, dx
+		mov	si, 12800
 		mov	al, _item_playperf_raise
 		add	al, 2
 		mov	_item_playperf_raise, al
@@ -25357,7 +25357,7 @@ loc_1DC78:
 
 loc_1DC7B:
 		inc	_total_point_items_collected
-		add	si, _dream_score
+		; Keep every item pickup score fixed at 12800.
 		inc	_stage_point_items_collected
 		call	hud_point_items_put
 		jmp	loc_1DD93
@@ -25375,7 +25375,7 @@ loc_1DC9A:
 		mov	bx, ax
 		mov	ax, _DREAM_SCORE_PER_ITEMS[bx]
 		mov	_dream_score, ax
-		mov	si, _dream_score
+		mov	si, 12800
 		call	hud_dream_put
 		mov	al, _item_playperf_raise
 		add	al, 2
@@ -25404,7 +25404,7 @@ loc_1DCCC:
 
 loc_1DCFE:
 		call	sub_11DE6
-		mov	si, 1
+		mov	si, 12800
 		jmp	loc_1DD93
 ; ---------------------------------------------------------------------------
 
@@ -25412,7 +25412,7 @@ loc_1DD09:
 		add	_power_overflow, 5
 		mov	bx, _power_overflow
 		add	bx, bx
-		mov	si, _POWER_OVERFLOW_BONUS[bx]
+		mov	si, 12800
 		cmp	_power_overflow, POWER_OVERFLOW_MAX
 		jbe	short loc_1DD25
 		mov	_power_overflow, POWER_OVERFLOW_MAX
@@ -25420,7 +25420,7 @@ loc_1DD09:
 loc_1DD25:
 		cmp	_power_overflow, POWER_OVERFLOW_MAX
 		jnz	short loc_1DD93
-		mov	si, 2560
+		mov	si, 12800
 		mov	[bp+@@yellow], 1
 		jmp	short loc_1DD93
 ; ---------------------------------------------------------------------------
@@ -25428,7 +25428,7 @@ loc_1DD25:
 loc_1DD35:
 		les	bx, _resident
 		inc	es:[bx+resident_t.rem_bombs]
-		mov	si, 100
+		mov	si, 12800
 		call	sub_EFA1
 		jmp	short loc_1DD93
 ; ---------------------------------------------------------------------------
@@ -25456,11 +25456,19 @@ loc_1DD7B:
 		call	sub_11DE6
 
 loc_1DD90:
-		mov	si, 100	; jumptable 0001CCD9 case 696
+		mov	si, 12800	; jumptable 0001CCD9 case 696
 
 loc_1DD93:
-		mov	si, 12800
-		mov	eax, 12800
+		cmp	_pointnum_times_2, 0
+		jnz	short loc_1DDA0
+		movzx	eax, si
+		jmp	short loc_1DDA8
+; ---------------------------------------------------------------------------
+
+loc_1DDA0:
+		mov	ax, si
+		; Keep pulled item pickup scores fixed instead of doubling them.
+		movzx	eax, ax
 
 loc_1DDA8:
 		add	_score_delta, eax

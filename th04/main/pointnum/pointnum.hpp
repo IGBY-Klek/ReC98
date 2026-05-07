@@ -10,7 +10,9 @@
 #define POINTNUM_DIGITS 5
 #define POINTNUM_YELLOW_COUNT 80
 #else
-#define POINTNUM_DIGITS 4
+// TH04 needs 5 stored digits to display item pickup values of 12800 as
+// 128000 with the renderer's trailing zero.
+#define POINTNUM_DIGITS 5
 #define POINTNUM_YELLOW_COUNT 200
 #define POINTNUM_TIMES_2_W (POINTNUM_W * 2)
 #endif
@@ -28,12 +30,14 @@ struct pointnum_t {
 #if GAME == 5
 	upixel_t width;
 	unsigned char digits_lebcd[POINTNUM_DIGITS];
+	int8_t padding;
 #else
 	unsigned char digits_lebcd[POINTNUM_DIGITS];
 	upixel_t width;
 	bool times_2;
+	// No padding: keeping [pointnum_t] at 16 bytes preserves the assembly ring
+	// buffer indexing despite the extra TH04 digit.
 #endif
-	int8_t padding;
 };
 
 extern pointnum_t pointnums[POINTNUM_COUNT];

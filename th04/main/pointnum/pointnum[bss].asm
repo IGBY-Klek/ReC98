@@ -13,7 +13,9 @@ if GAME eq 5
 	POINTNUM_DIGITS = 5
 	POINTNUM_YELLOW_COUNT = 80
 else
-	POINTNUM_DIGITS = 4
+	; TH04 needs 5 stored digits to display item pickup values of 12800
+	; as 128000 with the renderer's trailing zero.
+	POINTNUM_DIGITS = 5
 	POINTNUM_YELLOW_COUNT = 200
 	POINTNUM_TIMES_2_W = (POINTNUM_W * 2)
 endif
@@ -33,7 +35,9 @@ pointnum_t struc
 		PN_width dw ?
 		PN_times_2 db ?
 	endif
-	db ?
+	if GAME eq 5
+		db ?
+	endif
 pointnum_t ends
 
 public _pointnums

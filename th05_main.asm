@@ -8999,7 +8999,7 @@ loc_16F76:
 loc_16F9B:
 		inc	_power
 		call	sub_E4FC
-		mov	si, 1
+		mov	si, 12800
 		jmp	loc_17174
 ; ---------------------------------------------------------------------------
 
@@ -9018,7 +9018,7 @@ loc_16FAA:
 loc_16FD1:
 		mov	bx, _power_overflow
 		add	bx, bx
-		mov	si, _POWER_OVERFLOW_BONUS[bx]
+		mov	si, 12800
 		call	hud_dream_put
 		jmp	loc_17174
 ; ---------------------------------------------------------------------------
@@ -9033,13 +9033,13 @@ loc_16FE3:
 		sub	dx, ax
 		add	dx, -896
 		mov	[bp+var_2], dx
-		mov	si, 5120
+		mov	si, 12800
 		jmp	short loc_1700C
 ; ---------------------------------------------------------------------------
 
 loc_17003:
 		mov	[bp+var_2], 0
-		mov	si, _item_point_score_at_full_dream
+		mov	si, 12800
 
 loc_1700C:
 		cmp	[bp+var_2], 0
@@ -9075,7 +9075,7 @@ loc_1704D:
 		sar	ax, 1
 		mov	dx, 2800
 		sub	dx, ax
-		mov	si, dx
+		mov	si, 12800
 
 loc_1705C:
 		inc	_item_playperf_raise
@@ -9100,7 +9100,7 @@ loc_1707F:
 ; ---------------------------------------------------------------------------
 
 loc_1708F:
-		mov	si, 1
+		mov	si, 12800
 		mov	_dream, 128
 
 loc_17097:
@@ -9132,7 +9132,7 @@ loc_170B5:
 
 loc_170E7:
 		call	sub_E4FC
-		mov	si, 1
+		mov	si, 12800
 		jmp	loc_17174
 ; ---------------------------------------------------------------------------
 
@@ -9140,7 +9140,7 @@ loc_170F2:
 		add	_power_overflow, 5
 		mov	bx, _power_overflow
 		add	bx, bx
-		mov	si, _POWER_OVERFLOW_BONUS[bx]
+		mov	si, 12800
 		cmp	_power_overflow, POWER_OVERFLOW_MAX
 		jbe	short loc_1710E
 		mov	_power_overflow, POWER_OVERFLOW_MAX
@@ -9148,14 +9148,14 @@ loc_170F2:
 loc_1710E:
 		cmp	_power_overflow, POWER_OVERFLOW_MAX
 		jnz	short loc_17174
-		mov	si, 2560
+		mov	si, 12800
 		mov	[bp+@@yellow], 1
 		jmp	short loc_17174
 ; ---------------------------------------------------------------------------
 
 loc_1711E:
 		inc	_bombs
-		mov	si, 100
+		mov	si, 12800
 		call	sub_104BB
 		jmp	short loc_17174
 ; ---------------------------------------------------------------------------
@@ -9183,11 +9183,10 @@ loc_1715C:
 		call	sub_E4FC
 
 loc_17171:
-		mov	si, 100
+		mov	si, 12800
 
 loc_17174:
-		mov	si, 12800
-		mov	eax, 12800
+		movzx	eax, si
 		add	_score_delta, eax
 		cmp	[bp+@@yellow], 0
 		jnz	short loc_1718F
