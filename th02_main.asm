@@ -2423,10 +2423,10 @@ loc_C5C2:
 
 loc_C634:
 		mov	playchar_shot_func, offset shot_a
-		mov	_playchar_speed_aligned_x, 5
-		mov	_playchar_speed_aligned_y, 5
-		mov	_playchar_speed_diagonal_x, 4
-		mov	_playchar_speed_diagonal_y, 4
+		mov	_playchar_speed_aligned_x, 4
+		mov	_playchar_speed_aligned_y, 4
+		mov	_playchar_speed_diagonal_x, 3
+		mov	_playchar_speed_diagonal_y, 3
 		mov	byte_2060E, 30h	; '0'
 		pop	bp
 		retn
@@ -2447,8 +2447,8 @@ loc_C655:
 
 loc_C67F:
 		mov	playchar_shot_func, offset shot_c
-		mov	_playchar_speed_aligned_x, 3
-		mov	_playchar_speed_aligned_y, 3
+		mov	_playchar_speed_aligned_x, 4
+		mov	_playchar_speed_aligned_y, 4
 		mov	_playchar_speed_diagonal_x, 3
 		mov	_playchar_speed_diagonal_y, 3
 		mov	byte_1E518, 3
@@ -2880,7 +2880,7 @@ loc_CC6A:
 loc_CC76:
 		cmp	si, 3
 		jnz	short loc_CC82
-		mov	[bp+var_2], 0B0h ; 'Â°'
+		mov	[bp+var_2], 0B0h ; 'ï¾‚ï½°'
 		jmp	short loc_CC87
 ; ---------------------------------------------------------------------------
 
@@ -6292,9 +6292,9 @@ var_2		= word ptr -2
 		push	si
 		push	di
 		inc	word_20686
-		cmp	word_20686, 0A8h ; '¨'
+		cmp	word_20686, 0A8h ; 'ï½¨'
 		jb	loc_110B3
-		cmp	word_20686, 0A8h ; '¨'
+		cmp	word_20686, 0A8h ; 'ï½¨'
 		jnz	short loc_10EC0
 		call	_snd_se_play c, 14
 		jmp	loc_10FF6
@@ -8041,7 +8041,7 @@ loc_11D4E:
 		push	6Fh ; 'o'
 		call	sub_12A19
 		add	word_22FAC, 10h
-		cmp	word_22FAC, 0B0h ; '°'
+		cmp	word_22FAC, 0B0h ; 'ï½°'
 		jle	short loc_11D9A
 		mov	byte_22FAE, 1
 		add	word_22FAC, 10h
@@ -16531,7 +16531,7 @@ loc_16EAC:
 ; ---------------------------------------------------------------------------
 
 loc_16EB6:
-		sub	ax, 0A3h ; '£'
+		sub	ax, 0A3h ; 'ï½£'
 		mov	bx, ax
 		cmp	bx, 3
 		ja	loc_174B0
@@ -16540,7 +16540,7 @@ loc_16EB6:
 ; ---------------------------------------------------------------------------
 
 loc_16EC9:
-		sub	ax, 0A8h ; '¨'
+		sub	ax, 0A8h ; 'ï½¨'
 		mov	bx, ax
 		cmp	bx, 7
 		ja	loc_174B0
@@ -26080,37 +26080,37 @@ gPAUSE_MENU	db 0B9h, 0AAh, 0BEh, 0BCh, 0AEh, 0CFh, 0B7h, 0AEh, 0B6h, 0BEh, 0
 g11SPACES	db 0CFh, 0CFh, 0CFh, 0CFh, 0CFh, 0CFh, 0CFh, 0CFh, 0CFh, 0CFh, 0CFh, 0
 		db 0
 off_1DB6C	dd aGqbGapic
-					; "ƒQ[ƒ€I—¹"
+					; "ã‚²ãƒ¼ãƒ çµ‚äº†"
 off_1DB70	dd aGqbGanKj
-					; "ƒQ[ƒ€ÄŠJ"
+					; "ã‚²ãƒ¼ãƒ å†é–‹"
 byte_1DB74	db 0
 		db 0
 off_1DB76	dd aVV2
-					; "‚Ù‚ñ‚Æ‚ÉI—¹‚µ‚¿‚á‚¤‚Ì"
+					; "ã»ã‚“ã¨ã«çµ‚äº†ã—ã¡ã‚ƒã†ã®"
 off_1DB7A	dd aVdvVVBbvVVVV
-					; "‚¤‚»‚Å‚·B‚·‚İ‚Ü‚¹‚ñB"
+					; "ã†ãã§ã™ã€‚ã™ã¿ã¾ã›ã‚“ã€‚"
 off_1DB7E	dd aB@b@vVvbavtvVV
-					; "@@‚Í‚¢A‚â‚ß‚Ü‚·B@"
+					; "ã€€ã€€ã¯ã„ã€ã‚„ã‚ã¾ã™ã€‚ã€€"
 dword_1DB82	dd 0
 include th02/main/demo[data].asm
-aTH02_02	db '@ ”—í@`Eastern Wind ',0
-aTH02_03	db '@  She',27h,'s in a temper!! ',0
-aTH02_04	db '@   End of Daylight@  ',0
-aTH02_05	db '   @ ‚â‚İ‚Ì‚¿‚©‚ç@@  ',0
-aTH02_06	db '@@@@@Œ¶–²ŠE@@@@',0
-aTH02_07	db ' @@@€‚ğ“q‚µ‚Ä@@@ ',0
-aTH02_08	db '‚Ğ‚à‚ë‚¬A‚Ş‚ç‚³‚«‚É‚à‚¦',0
-aTH02_09		db '   @ —öFƒ}ƒWƒbƒN @   ',0
-aTH02_10		db '@“Œ•û••–‚˜^@`—HŒ¶—•‘',0
+aTH02_02	db 'ã€€ åšéº—ã€€ï½Eastern Wind ',0
+aTH02_03	db 'ã€€  She',27h,'s in a temper!! ',0
+aTH02_04	db 'ã€€   End of Daylightã€€  ',0
+aTH02_05	db '   ã€€ ã‚„ã¿ã®ã¡ã‹ã‚‰ã€€ã€€  ',0
+aTH02_06	db 'ã€€ã€€ã€€ã€€ã€€å¹»å¤¢ç•Œã€€ã€€ã€€ã€€',0
+aTH02_07	db ' ã€€ã€€ã€€æ­»ã‚’è³­ã—ã¦ã€€ã€€ã€€ ',0
+aTH02_08	db 'ã²ã‚‚ã‚ãã€ã‚€ã‚‰ã•ãã«ã‚‚ãˆ',0
+aTH02_09		db '   ã€€ æ‹è‰²ãƒã‚¸ãƒƒã‚¯ ã€€   ',0
+aTH02_10		db 'ã€€æ±æ–¹å°é­”éŒ²ã€€ï½å¹½å¹»ä¹±èˆ',0
 aTH02_11	db '   Complete Darkness    ',0
-aTH02_12	db '   @ ƒGƒLƒXƒgƒ‰ƒ‰ƒu    ',0
-aTH02_13	db '  íÔ‚Ş‚·‚ß‚Ì‚İ‚é‚ä‚ß  ',0
-aSTAGE1_TITLE	db '‡–ì@` Purple Dawn',0
-aSTAGE2_TITLE	db '—‹b@`Midnight Rainstorm',0
-aSTAGE3_TITLE	db 'g–²@` Scarlet Dream',0
-aSTAGE4_TITLE	db '—ì–‚@`Revengeful Ghost',0
-aSTAGE5_TITLE	db '••–‚@`“Œ•û••–‚˜^ and ...',0
-aEXTRA_TITLE		db 'ˆÙ‹ó@`for Lunatic Gamers',0
+aTH02_12	db '   ã€€ ã‚¨ã‚­ã‚¹ãƒˆãƒ©ãƒ©ãƒ–    ',0
+aTH02_13	db '  æˆ¦è»Šã‚€ã™ã‚ã®ã¿ã‚‹ã‚†ã‚  ',0
+aSTAGE1_TITLE	db 'ç´«é‡ã€€ï½ Purple Dawn',0
+aSTAGE2_TITLE	db 'é›·ç£ã€€ï½Midnight Rainstorm',0
+aSTAGE3_TITLE	db 'ç´…å¤¢ã€€ï½ Scarlet Dream',0
+aSTAGE4_TITLE	db 'éœŠé­”ã€€ï½Revengeful Ghost',0
+aSTAGE5_TITLE	db 'å°é­”ã€€ï½æ±æ–¹å°é­”éŒ² and ...',0
+aEXTRA_TITLE		db 'ç•°ç©ºã€€ï½for Lunatic Gamers',0
 ; char arg0[3]
 arg0		db 'op',0
 aHuuma_efc	db 'huuma.efc',0
@@ -26126,11 +26126,11 @@ aM		db 'm',0
 		db    0
 		db    0
 aMiko_k_mpn	db 'miko_k.mpn',0
-aGqbGapic	db 'ƒQ[ƒ€I—¹',0
-aGqbGanKj	db 'ƒQ[ƒ€ÄŠJ',0
-aVV2		db '‚Ù‚ñ‚Æ‚ÉI—¹‚µ‚¿‚á‚¤‚Ì',0
-aVdvVVBbvVVVV	db '‚¤‚»‚Å‚·B‚·‚İ‚Ü‚¹‚ñB',0
-aB@b@vVvbavtvVV	db '@@‚Í‚¢A‚â‚ß‚Ü‚·B@',0
+aGqbGapic	db 'ã‚²ãƒ¼ãƒ çµ‚äº†',0
+aGqbGanKj	db 'ã‚²ãƒ¼ãƒ å†é–‹',0
+aVV2		db 'ã»ã‚“ã¨ã«çµ‚äº†ã—ã¡ã‚ƒã†ã®',0
+aVdvVVBbvVVVV	db 'ã†ãã§ã™ã€‚ã™ã¿ã¾ã›ã‚“ã€‚',0
+aB@b@vVvbavtvVV	db 'ã€€ã€€ã¯ã„ã€ã‚„ã‚ã¾ã™ã€‚ã€€',0
 aEMPTY	db '                                                ',0
 aDemo1_rec	db 'DEMO1.REC',0
 aDemo2_rec	db 'DEMO2.REC',0
@@ -26166,7 +26166,7 @@ public _mpn_show_palette_on_load, _mpn_count
 _mpn_show_palette_on_load	db 1
 _mpn_count	db 0
 public _pf_fn
-_pf_fn		db '“Œ•û••–‚.˜^',0
+_pf_fn		db 'æ±æ–¹å°é­”.éŒ²',0
 include th02/snd/se[data].asm
 		db    0
 		db  80h
@@ -26189,20 +26189,20 @@ public _BONUS_EXTRA_BOMBS, _BONUS_EXTRA_SIGMA_FRAMES
 
 ; ZUN bug: Why is that space here? None of the other labels even attempt to be
 ; centered.
-_BONUS_RANK       	db ' “ïˆÕ“x',0
+_BONUS_RANK       	db ' é›£æ˜“åº¦',0
 
-_BONUS_PLAYPERF   	db 'ƒXƒe[ƒW',0
-_BONUS_BOMBS      	db 'ƒ{ƒ€',0
-_BONUS_LIVES      	db 'ƒ~ƒX',0
-_BONUS_START_BOMBS	db 'èËŒ‚‰Šú”',0
-_BONUS_START_LIVES	db 'èË–²‰Šú”',0
-_BONUS_POINT 	db '“_',0
-_BONUS_TIMES 	db '~',0
-_BONUS_EQUALS	db '',0
-_BONUS_EXTRA_CLEAR       	db 'ƒNƒŠƒA',0
-_BONUS_EXTRA_LIVES       	db 'ƒ~ƒX‰ñ”',0
-_BONUS_EXTRA_BOMBS       	db 'ƒ{ƒ€‰ñ”',0
-_BONUS_EXTRA_SIGMA_FRAMES	db 'ƒNƒŠƒAƒ^ƒCƒ€',0
+_BONUS_PLAYPERF   	db 'ã‚¹ãƒ†ãƒ¼ã‚¸',0
+_BONUS_BOMBS      	db 'ãƒœãƒ ',0
+_BONUS_LIVES      	db 'ãƒŸã‚¹',0
+_BONUS_START_BOMBS	db 'éˆæ’ƒåˆæœŸæ•°',0
+_BONUS_START_LIVES	db 'éˆå¤¢åˆæœŸæ•°',0
+_BONUS_POINT 	db 'ç‚¹',0
+_BONUS_TIMES 	db 'Ã—',0
+_BONUS_EQUALS	db 'ï¼',0
+_BONUS_EXTRA_CLEAR       	db 'ã‚¯ãƒªã‚¢',0
+_BONUS_EXTRA_LIVES       	db 'ãƒŸã‚¹å›æ•°',0
+_BONUS_EXTRA_BOMBS       	db 'ãƒœãƒ å›æ•°',0
+_BONUS_EXTRA_SIGMA_FRAMES	db 'ã‚¯ãƒªã‚¢ã‚¿ã‚¤ãƒ ',0
 include th02/gaiji/gameover[data].asm
 asc_1E47E	db '                ',0
 		db 0
@@ -26816,19 +26816,19 @@ _STAGE5_FORM1DEFEAT_NOTCONTINUED_ label byte
 	db FACE_MIMA_FROWN 	; 2
 	db FACE_REIMU_FROWN	; 3
 
-aLINE_BLANK	db '@@@@@@@@@@@@@@@@@@', 0
+aLINE_BLANK	db 'ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€', 0
 public _dialog_fn
 _dialog_fn	db 'stage .txt',0
-aFW_0	db '‚O', 0
-aFW_1	db '‚P', 0
-aFW_2	db '‚Q', 0
-aFW_3	db '‚R', 0
-aFW_4	db '‚S', 0
-aFW_5	db '‚T', 0
-aFW_6	db '‚U', 0
-aFW_7	db '‚V', 0
-aFW_8	db '‚W', 0
-aFW_9	db '‚X', 0
+aFW_0	db 'ï¼', 0
+aFW_1	db 'ï¼‘', 0
+aFW_2	db 'ï¼’', 0
+aFW_3	db 'ï¼“', 0
+aFW_4	db 'ï¼”', 0
+aFW_5	db 'ï¼•', 0
+aFW_6	db 'ï¼–', 0
+aFW_7	db 'ï¼—', 0
+aFW_8	db 'ï¼˜', 0
+aFW_9	db 'ï¼™', 0
 word_1ED94	dw 0
 word_1ED96	dw 0
 word_1ED98	dw 0

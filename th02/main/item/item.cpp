@@ -6,6 +6,7 @@
 #include "th02/common.h"
 #include "th02/resident.hpp"
 #include "th02/math/randring.hpp"
+#include "th02/math/vector.hpp"
 #include "th02/core/globals.hpp"
 #include "th02/hardware/pages.hpp"
 #include "th02/snd/snd.h"
@@ -26,6 +27,15 @@
 
 static const pixel_t ITEM_W = 16;
 static const pixel_t ITEM_H = 16;
+
+// TH04-style Point of Collection and item pull mechanics. Once Reimu reaches
+// the top quarter of the playfield, all live items are pulled toward the
+// player at this speed instead of continuing their normal TH02 gravity/bounce
+// motion.
+static const screen_y_t ITEM_POC_TOP_MAX = (
+	PLAYFIELD_TOP + (PLAYFIELD_H / 4)
+);
+static const subpixel_t ITEM_PULL_SPEED = TO_SP(10);
 
 #define SEMIRANDOM_RING	ITEM_SEMIRANDOM_RING
 
@@ -50,6 +60,34 @@ struct item_t {
 	pixel_t velocity_x_during_bounce;
 	int age; // unused
 };
+
+
+inline bool16 items_pull_to_player(void)
+{
+	return (
+		!player_is_hit &&
+		(player_topleft.y <= ITEM_POC_TOP_MAX)
+	);
+}
+
+inline void item_pull_to_player(item_pos_t near& pos)
+{
+	int velocity_x;
+	int velocity_y;
+
+	vector2_between_plus(
+		to_sp(pos.screen_left + (ITEM_W / 2)),
+		(pos.screen_top.v + to_sp(ITEM_H / 2)),
+		to_sp(player_center_x()),
+		to_sp(player_center_y()),
+		0,
+		velocity_x,
+		velocity_y,
+		ITEM_PULL_SPEED
+	);
+	pos.screen_left += (velocity_x >> SUBPIXEL_BITS);
+	pos.screen_top.v += velocity_y;
+}
 
 // State
 // -----
@@ -394,10 +432,14 @@ void near items_update_and_render(void)
 		p_left_ptr = &pos.screen_left;
 		p_top_ptr = &pos.screen_top;
 
-		if(p->velocity_y <= 0) {
-			*p_left_ptr += p->velocity_x_during_bounce;
+		if(items_pull_to_player()) {
+			item_pull_to_player(pos);
+		} else {
+			if(p->velocity_y <= 0) {
+				*p_left_ptr += p->velocity_x_during_bounce;
+			}
+			p_top_ptr->v += p->velocity_y.v;
 		}
-		p_top_ptr->v += p->velocity_y.v;
 
 		p_left = *p_left_ptr;
 		p_top.screen = p_top_ptr->to_pixel();
