@@ -6,7 +6,7 @@
 #include "th02/common.h"
 #include "th02/resident.hpp"
 #include "th02/math/randring.hpp"
-#include "th02/math/vector.hpp"
+#include "th01/math/polar.hpp"
 #include "th02/core/globals.hpp"
 #include "th02/hardware/pages.hpp"
 #include "th02/snd/snd.h"
@@ -75,16 +75,12 @@ inline void item_pull_to_player(item_pos_t near& pos)
 	int velocity_x;
 	int velocity_y;
 
-	vector2_between_plus(
-		to_sp(pos.screen_left + (ITEM_W / 2)),
-		(pos.screen_top.v + to_sp(ITEM_H / 2)),
-		to_sp(player_center_x()),
-		to_sp(player_center_y()),
-		0,
-		velocity_x,
-		velocity_y,
-		ITEM_PULL_SPEED
+	const unsigned char angle = iatan2(
+		(to_sp(player_center_y()) - (pos.screen_top.v + to_sp(ITEM_H / 2))),
+		(to_sp(player_center_x()) - to_sp(pos.screen_left + (ITEM_W / 2)))
 	);
+	velocity_x = polar_x_fast(0, ITEM_PULL_SPEED, angle);
+	velocity_y = polar_y_fast(0, ITEM_PULL_SPEED, angle);
 	pos.screen_left += (velocity_x >> SUBPIXEL_BITS);
 	pos.screen_top.v += velocity_y;
 }
