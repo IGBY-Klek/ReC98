@@ -25617,7 +25617,11 @@ loc_1DE7E:
 
 loc_1DE90:
 		cmp	_items_pull_to_player, 0
-		jz	short loc_1DEC6
+		jnz	short loc_1DE9B
+		cmp	[si+item_t.pulled_to_player], 0
+		jz	short loc_1DEDB
+
+loc_1DE9B:
 		mov	_pointnum_times_2, 1
 		mov	[si+item_t.pulled_to_player], 1
 		mov	ax, _player_pos.cur.y
@@ -25632,13 +25636,6 @@ loc_1DE90:
 		call	vector2_near pascal, ax, word ptr [bp+@@angle], (ITEM_PULL_SPEED shl 4)
 		jmp	short loc_1DEDB
 ; ---------------------------------------------------------------------------
-
-loc_1DEC6:
-		cmp	[si+item_t.pulled_to_player], 0
-		jz	short loc_1DEDB
-		mov	[si+item_t.pos.velocity.x], 0
-		mov	[si+item_t.pos.velocity.y], 0
-		mov	[si+item_t.pulled_to_player], 0
 
 loc_1DEDB:
 		lea	ax, [si+item_t.pos]
@@ -29518,7 +29515,7 @@ off_213E0	dd aSt00
 					; "ST00"
 _bbname	dd aBb0_cdg_0	; original ZUN variable name
 _EYECATCH_FN_FORMAT	db 'eye0.cdg',0
-aUmx		db '“Œ•ûŒ¶‘z.‹½',0
+aUmx		db 'æ±æ–¹å¹»æƒ³.éƒ·',0
 aGameft_bft	db 'GAMEFT.bft',0
 aMiko		db 'miko',0
 ; char arg0[]
@@ -29758,8 +29755,8 @@ include th04/gaiji/hud[data].asm
 include th02/main/hud/power[data].asm
 include th04/main/hud/hp[data].asm
 include th04/main/hud/bar_put[data].asm
-aB@b@bB@b@	db '@@~@@',0
-aB@b@bB@b@_0	db '@@~@@',0
+aB@b@bB@b@	db 'ã€€ã€€Ã—ã€€ã€€',0
+aB@b@bB@b@_0	db 'ã€€ã€€Ã—ã€€ã€€',0
 include th04/formats/bb_playchar[data].asm
 SHOT_FUNCS_REIMU_A label word
 	dw shot_reimu_l0
@@ -29809,31 +29806,31 @@ include th04/main/player/shots_hittest[data].asm
 _enemies_gone	dw 0
 _enemies_killed	dw 0
 include th04/main/hud/overlay[data].asm
-aMCB@bPhantomLa	db 'Œ¶–ì@` Phantom Land ',0
-aMCsb@bPhantomN	db 'Œ¶–é@` Phantom Night',0
-aMKib@bLakeOfBl	db 'ŒÍŠ‰@` Lake of Blood',0
-aCChb@bDarkness	db '–»—H@` Darkness ',0
-aCMB@bDreamOfFr	db '–²Œ¶@` Dream of Frail Girl',0
-aMSzb@bPhantasm	db 'Œ¶‘z@` Phantasmagoria ',0
-aTMvb@bRaspberr	db '’ÇŒ‚@` Raspberry Trap ',0
-aVVVcvVvmnvRViv	db '‚·‚Î‚ç‚µ‚¢ŒN‚ÉÃ‚©‚È÷‚è‚ğ@` Puckish Angel',0
+aMCB@bPhantomLa	db 'å¹»é‡ã€€ï½ Phantom Land ',0
+aMCsb@bPhantomN	db 'å¹»å¤œã€€ï½ Phantom Night',0
+aMKib@bLakeOfBl	db 'æ¯æ¸‡ã€€ï½ Lake of Blood',0
+aCChb@bDarkness	db 'å†¥å¹½ã€€ï½ Darkness ',0
+aCMB@bDreamOfFr	db 'å¤¢å¹»ã€€ï½ Dream of Frail Girl',0
+aMSzb@bPhantasm	db 'å¹»æƒ³ã€€ï½ Phantasmagoria ',0
+aTMvb@bRaspberr	db 'è¿½æ’ƒã€€ï½ Raspberry Trap ',0
+aVVVcvVvmnvRViv	db 'ã™ã°ã‚‰ã—ã„å›ã«é™ã‹ãªæšã‚Šã‚’ã€€ï½ Puckish Angel',0
 aWitchingDream	db 'Witching Dream',0
 aSeleneSLight	db 'Selene',27h,'s light',0
-aSxp		db '‘•üí@` Decoration Battle',0
+aSxp		db 'è£…é£¾æˆ¦ã€€ï½ Decoration Battle',0
 aBreakTheSabbat	db 'Break the Sabbath',0
-aNglLB@bScarlet	db 'g‹¿‹È@` Scarlet Phoneme',0
+aNglLB@bScarlet	db 'ç´…éŸ¿æ›²ã€€ï½ Scarlet Phoneme',0
 aBadApple	db 'BAD Apple!!',0
-aCRab@bPerditio	db '—ìí@` Perdition crisis ',0
-aGagkgxgGggxgeg	db 'ƒAƒŠƒXƒ}ƒGƒXƒeƒ‰',0
-aRpvKab@bCasket	db '¯‚ÌŠí@` Casket of Star ',0
+aCRab@bPerditio	db 'éœŠæˆ¦ã€€ï½ Perdition crisis ',0
+aGagkgxgGggxgeg	db 'ã‚¢ãƒªã‚¹ãƒã‚¨ã‚¹ãƒ†ãƒ©',0
+aRpvKab@bCasket	db 'æ˜Ÿã®å™¨ã€€ï½ Casket of Star ',0
 aLotusLove	db 'Lotus Love',0
-aCVVslXB@bSleep	db '–°‚ê‚é‹°•|@` Sleeping Terror',0
+aCVVslXB@bSleep	db 'çœ ã‚Œã‚‹ææ€–ã€€ï½ Sleeping Terror',0
 aDreamLand	db 'Dream Land',0
-aChcB@bInanimat	db '—H–²@` Inanimate Dream ',0
-aLVVVsv		db '‹Ö‚¶‚´‚é‚ğ‚¦‚È‚¢—V‹Y ',0
-aGbgcghmSzb@bIc	db 'ƒƒCƒhŒ¶‘z@` Icemilk Magic ',0
-aVivavvvvilcvb@	db '‚©‚í‚¢‚¢ˆ«–‚@` Innocence',0
-aPnpcuyszlB@bCa	db '­—ãY‘z‹È@` Capriccio ',0
+aChcB@bInanimat	db 'å¹½å¤¢ã€€ï½ Inanimate Dream ',0
+aLVVVsv		db 'ç¦ã˜ã–ã‚‹ã‚’ãˆãªã„éŠæˆ¯ ',0
+aGbgcghmSzb@bIc	db 'ãƒ¡ã‚¤ãƒ‰å¹»æƒ³ã€€ï½ Icemilk Magic ',0
+aVivavvvvilcvb@	db 'ã‹ã‚ã„ã„æ‚ªé­”ã€€ï½ Innocence',0
+aPnpcuyszlB@bCa	db 'å°‘å¥³ç¶ºæƒ³æ›²ã€€ï½ Capriccio ',0
 include th04/formats/bb_txt_load[data].asm
 word_231F2	dw 10h
 include th03/main/5_powers_of_10[data].asm
@@ -29897,32 +29894,32 @@ _STAGE_CLEAR_BONUS_DESC label dword
 gpCLEAR_BONUS	db 4Dh,	4Eh, 4Fh, 2, 58h, 59h, 5Ah, 5Bh, 0
 ; char gpCONGRATULATION[]
 gpCONGRATULATION db 5Ch, 5Dh, 5Eh, 5Fh, 60h, 61h, 62h, 63h, 64h, 0
-aBOSS_FINAL_TIMEOUT	db 'ˆ«—ìƒ{ƒX‘Ş¡¸”sII@@@@@@@~@‚OD‚O',0
-aPENALTY_6	db 'ƒvƒŒƒCƒ„[”ƒyƒiƒ‹ƒeƒBi‰Šú‚Ulj~@‚OD‚R',0
-aPENALTY_5	db 'ƒvƒŒƒCƒ„[”ƒyƒiƒ‹ƒeƒBi‰Šú‚Tlj~@‚OD‚T',0
-aPENALTY_4	db 'ƒvƒŒƒCƒ„[”ƒyƒiƒ‹ƒeƒBi‰Šú‚Slj~@‚OD‚V',0
-aPENALTY_CONT_1	db 'ƒRƒ“ƒeƒBƒjƒ…[ƒyƒiƒ‹ƒeƒBi‚P‰ñj@~@‚OD‚W',0
-aPENALTY_CONT_2	db 'ƒRƒ“ƒeƒBƒjƒ…[ƒyƒiƒ‹ƒeƒBi‚Q‰ñj@~@‚OD‚U',0
-aPENALTY_CONT_3	db 'ƒRƒ“ƒeƒBƒjƒ…[ƒyƒiƒ‹ƒeƒBi‚R‰ñj@~@‚OD‚S',0
-aBONUS_EASY	db '“ïˆÕ“xƒ{[ƒiƒXi‚d‚‚“‚™j@@@@~@‚OD‚T',0
-aBONUS_NORMAL	db '“ïˆÕ“xƒ{[ƒiƒXi‚m‚‚’‚‚‚Œj@@~@‚PD‚O',0
-aBONUS_HARD	db '“ïˆÕ“xƒ{[ƒiƒXi‚g‚‚’‚„j@@@@~@‚PD‚Q',0
-aBONUS_LUNATIC	db '“ïˆÕ“xƒ{[ƒiƒXi‚k‚•‚‚‚”‚‰‚ƒj@~@‚PD‚S',0
-aBONUS_STAGE	db '‚r‚s‚`‚f‚d@‚a‚‚‚•‚“',0
-aPOWERX50	db '‚o‚n‚v‚d‚q@~@@‚T‚O',0
-aBONUS_DREAM	db '‚c‚q‚d‚`‚l@‚a‚‚‚•‚“',0
-aGRAZEX50	db 'ƒJƒXƒŠ’e”@~@@‚T‚O',0
-aBONUS_POINT	db '‚o‚n‚h‚m‚s@‚a‚‚‚•‚“@@@@@@~',0
-aBONUS_TOTAL	db '@@@‚s‚n‚s‚`‚k',0
-aBOMB_EXTEND	db '@@@@@‚a‚‚‚‚@‚d‚˜‚”‚…‚‚„II',0
-aALL_CLEAR	db '‚`‚k‚k@‚b‚Œ‚…‚‚’@@',0
-aPOWERX50_2	db '‚o‚n‚v‚d‚q@~@@‚T‚O',0
-aBONUS_DREAM_2	db '‚c‚q‚d‚`‚l@‚a‚‚‚•‚“',0
-aGRAZEX50_2	db 'ƒJƒXƒŠ’e”@~@@‚T‚O',0
-aPLAYER_REM_10000	db 'c‚èl”@~‚P‚O‚O‚O‚O',0
-aPLAYER_REM_30000	db 'c‚èl”@~‚R‚O‚O‚O‚O',0
-aBONUS_POINT_2	db '‚o‚n‚h‚m‚s@‚a‚‚‚•‚“@@@@@@~',0
-aBONUS_TOTAL_2	db '@@@‚s‚n‚s‚`‚k',0
+aBOSS_FINAL_TIMEOUT	db 'æ‚ªéœŠãƒœã‚¹é€€æ²»å¤±æ•—ï¼ï¼ã€€ã€€ã€€ã€€ã€€ã€€ã€€Ã—ã€€ï¼ï¼ï¼',0
+aPENALTY_6	db 'ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼æ•°ãƒšãƒŠãƒ«ãƒ†ã‚£ï¼ˆåˆæœŸï¼–äººï¼‰Ã—ã€€ï¼ï¼ï¼“',0
+aPENALTY_5	db 'ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼æ•°ãƒšãƒŠãƒ«ãƒ†ã‚£ï¼ˆåˆæœŸï¼•äººï¼‰Ã—ã€€ï¼ï¼ï¼•',0
+aPENALTY_4	db 'ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼æ•°ãƒšãƒŠãƒ«ãƒ†ã‚£ï¼ˆåˆæœŸï¼”äººï¼‰Ã—ã€€ï¼ï¼ï¼—',0
+aPENALTY_CONT_1	db 'ã‚³ãƒ³ãƒ†ã‚£ãƒ‹ãƒ¥ãƒ¼ãƒšãƒŠãƒ«ãƒ†ã‚£ï¼ˆï¼‘å›ï¼‰ã€€Ã—ã€€ï¼ï¼ï¼˜',0
+aPENALTY_CONT_2	db 'ã‚³ãƒ³ãƒ†ã‚£ãƒ‹ãƒ¥ãƒ¼ãƒšãƒŠãƒ«ãƒ†ã‚£ï¼ˆï¼’å›ï¼‰ã€€Ã—ã€€ï¼ï¼ï¼–',0
+aPENALTY_CONT_3	db 'ã‚³ãƒ³ãƒ†ã‚£ãƒ‹ãƒ¥ãƒ¼ãƒšãƒŠãƒ«ãƒ†ã‚£ï¼ˆï¼“å›ï¼‰ã€€Ã—ã€€ï¼ï¼ï¼”',0
+aBONUS_EASY	db 'é›£æ˜“åº¦ãƒœãƒ¼ãƒŠã‚¹ï¼ˆï¼¥ï½ï½“ï½™ï¼‰ã€€ã€€ã€€ã€€Ã—ã€€ï¼ï¼ï¼•',0
+aBONUS_NORMAL	db 'é›£æ˜“åº¦ãƒœãƒ¼ãƒŠã‚¹ï¼ˆï¼®ï½ï½’ï½ï½ï½Œï¼‰ã€€ã€€Ã—ã€€ï¼‘ï¼ï¼',0
+aBONUS_HARD	db 'é›£æ˜“åº¦ãƒœãƒ¼ãƒŠã‚¹ï¼ˆï¼¨ï½ï½’ï½„ï¼‰ã€€ã€€ã€€ã€€Ã—ã€€ï¼‘ï¼ï¼’',0
+aBONUS_LUNATIC	db 'é›£æ˜“åº¦ãƒœãƒ¼ãƒŠã‚¹ï¼ˆï¼¬ï½•ï½ï½ï½”ï½‰ï½ƒï¼‰ã€€Ã—ã€€ï¼‘ï¼ï¼”',0
+aBONUS_STAGE	db 'ï¼³ï¼´ï¼¡ï¼§ï¼¥ã€€ï¼¢ï½ï½ï½•ï½“',0
+aPOWERX50	db 'ï¼°ï¼¯ï¼·ï¼¥ï¼²ã€€Ã—ã€€ã€€ï¼•ï¼',0
+aBONUS_DREAM	db 'ï¼¤ï¼²ï¼¥ï¼¡ï¼­ã€€ï¼¢ï½ï½ï½•ï½“',0
+aGRAZEX50	db 'ã‚«ã‚¹ãƒªå¼¾æ•°ã€€Ã—ã€€ã€€ï¼•ï¼',0
+aBONUS_POINT	db 'ï¼°ï¼¯ï¼©ï¼®ï¼´ã€€ï¼¢ï½ï½ï½•ï½“ã€€ã€€ã€€ã€€ã€€ã€€Ã—',0
+aBONUS_TOTAL	db 'ã€€ã€€ã€€ï¼´ï¼¯ï¼´ï¼¡ï¼¬',0
+aBOMB_EXTEND	db 'ã€€ã€€ã€€ã€€ã€€ï¼¢ï½ï½ï½‚ã€€ï¼¥ï½˜ï½”ï½…ï½ï½„ï¼ï¼',0
+aALL_CLEAR	db 'ï¼¡ï¼¬ï¼¬ã€€ï¼£ï½Œï½…ï½ï½’ã€€ã€€',0
+aPOWERX50_2	db 'ï¼°ï¼¯ï¼·ï¼¥ï¼²ã€€Ã—ã€€ã€€ï¼•ï¼',0
+aBONUS_DREAM_2	db 'ï¼¤ï¼²ï¼¥ï¼¡ï¼­ã€€ï¼¢ï½ï½ï½•ï½“',0
+aGRAZEX50_2	db 'ã‚«ã‚¹ãƒªå¼¾æ•°ã€€Ã—ã€€ã€€ï¼•ï¼',0
+aPLAYER_REM_10000	db 'æ®‹ã‚Šäººæ•°ã€€Ã—ï¼‘ï¼ï¼ï¼ï¼',0
+aPLAYER_REM_30000	db 'æ®‹ã‚Šäººæ•°ã€€Ã—ï¼“ï¼ï¼ï¼ï¼',0
+aBONUS_POINT_2	db 'ï¼°ï¼¯ï¼©ï¼®ï¼´ã€€ï¼¢ï½ï½ï½•ï½“ã€€ã€€ã€€ã€€ã€€ã€€Ã—',0
+aBONUS_TOTAL_2	db 'ã€€ã€€ã€€ï¼´ï¼¯ï¼´ï¼¡ï¼¬',0
 		db    0
 include th04/main/item/enemy_drops[data].asm
 include th04/main/item/items[data].asm

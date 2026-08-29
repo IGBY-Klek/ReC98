@@ -9301,7 +9301,11 @@ loc_1721C:
 
 loc_1722E:
 		cmp	_items_pull_to_player, 0
-		jz	short loc_17264
+		jnz	short loc_17239
+		cmp	[si+item_t.pulled_to_player], 0
+		jz	short loc_17279
+
+loc_17239:
 		mov	_pointnum_times_2, 1
 		mov	[si+item_t.pulled_to_player], 1
 		mov	ax, _player_pos.cur.y
@@ -9316,13 +9320,6 @@ loc_1722E:
 		call	vector2_near pascal, ax, word ptr [bp+@@angle], (ITEM_PULL_SPEED shl 4)
 		jmp	short loc_17279
 ; ---------------------------------------------------------------------------
-
-loc_17264:
-		cmp	[si+item_t.pulled_to_player], 0
-		jz	short loc_17279
-		mov	[si+item_t.pos.velocity.x], 0
-		mov	[si+item_t.pos.velocity.y], 0
-		mov	[si+item_t.pulled_to_player], 0
 
 loc_17279:
 		lea	ax, [si+item_t.pos]
@@ -19467,7 +19464,7 @@ off_20A86	dd aSt00
 _bbname	dd aBb0_cdg_0	; ZUN symbol [MAGNet2010]
 aVersion1_01	db 'version 1.01',0
 _EYECATCH_FN	db 'eye.cdg',0
-aKAIKIDAN2_DAT	db '‰öãY’k2.dat',0
+aKAIKIDAN2_DAT	db 'æ€ªç¶ºè«‡2.dat',0
 aMiko		db 'miko',0
 ; char arg0[]
 arg0		db 'op',0
@@ -19657,27 +19654,27 @@ PLAYER_REM	dw offset aPLAYER_REM
 POINT_TOTAL	dw offset aPOINT_TOTAL
 gpCLEAR_BONUS	db 4Dh,	4Eh, 4Fh, 2, 58h, 59h, 5Ah, 5Bh, 0
 gpCONGRATULATION db 5Ch, 5Dh, 5Eh, 5Fh,	60h, 61h, 62h, 63h, 64h, 0
-aBOSS_FINAL_TIMEOUT	db 'ˆ«—ìƒ{ƒX‘ÞŽ¡Ž¸”sII@@@@@@@~@‚OD‚O',0
-aPENALTY_6	db 'ƒvƒŒƒCƒ„[”ƒyƒiƒ‹ƒeƒBi‰Šú‚Ulj~@‚OD‚R',0
-aPENALTY_5	db 'ƒvƒŒƒCƒ„[”ƒyƒiƒ‹ƒeƒBi‰Šú‚Tlj~@‚OD‚T',0
-aPENALTY_4	db 'ƒvƒŒƒCƒ„[”ƒyƒiƒ‹ƒeƒBi‰Šú‚Slj~@‚OD‚V',0
-aPENALTY_CONT_1	db 'ƒRƒ“ƒeƒBƒjƒ…[ƒyƒiƒ‹ƒeƒBi‚P‰ñj@~@‚OD‚W',0
-aPENALTY_CONT_2	db 'ƒRƒ“ƒeƒBƒjƒ…[ƒyƒiƒ‹ƒeƒBi‚Q‰ñj@~@‚OD‚U',0
-aPENALTY_CONT_3	db 'ƒRƒ“ƒeƒBƒjƒ…[ƒyƒiƒ‹ƒeƒBi‚R‰ñj@~@‚OD‚S',0
-aBONUS_EASY	db '“ïˆÕ“xƒ{[ƒiƒXi‚d‚‚“‚™j@@@@~@‚OD‚T',0
-aBONUS_NORMAL	db '“ïˆÕ“xƒ{[ƒiƒXi‚m‚‚’‚‚‚Œj@@~@‚PD‚O',0
-aBONUS_HARD	db '“ïˆÕ“xƒ{[ƒiƒXi‚g‚‚’‚„j@@@@~@‚PD‚Q',0
-aBONUS_LUNATIC	db '“ïˆÕ“xƒ{[ƒiƒXi‚k‚•‚Ž‚‚”‚‰‚ƒj@~@‚PD‚S',0
-aBONUS_STAGE	db '‚r‚s‚`‚f‚d@‚a‚‚Ž‚•‚“',0
-aBONUS_DREAM	db '‚c‚q‚d‚`‚l@‚a‚‚Ž‚•‚“',0
-aGRAZEX50	db 'ƒJƒXƒŠ’e”@~@@‚T‚O',0
-aPOINT_ITEMS	db '@~@“¾“_ƒAƒCƒeƒ€”@',0
-aBONUS_NOMISS	db '@{@ƒm[ƒ~ƒXƒ{[ƒiƒX',0
-aBONUS_NOBOMB	db '@{@ƒm[ƒ{ƒ€ƒ{[ƒiƒX',0
-aBONUS_TOTAL	db '@@@‚s‚n‚s‚`‚k',0
-aALL_CLEAR	db '‚`‚k‚k@‚b‚Œ‚…‚‚’@@',0
-aPLAYER_REM	db 'Žc‚èl”@~‚P‚O‚O‚O‚O',0
-aPOINT_TOTAL	db '‘“¾“_ƒAƒCƒeƒ€ƒ{[ƒiƒX',0
+aBOSS_FINAL_TIMEOUT	db 'æ‚ªéœŠãƒœã‚¹é€€æ²»å¤±æ•—ï¼ï¼ã€€ã€€ã€€ã€€ã€€ã€€ã€€Ã—ã€€ï¼ï¼Žï¼',0
+aPENALTY_6	db 'ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼æ•°ãƒšãƒŠãƒ«ãƒ†ã‚£ï¼ˆåˆæœŸï¼–äººï¼‰Ã—ã€€ï¼ï¼Žï¼“',0
+aPENALTY_5	db 'ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼æ•°ãƒšãƒŠãƒ«ãƒ†ã‚£ï¼ˆåˆæœŸï¼•äººï¼‰Ã—ã€€ï¼ï¼Žï¼•',0
+aPENALTY_4	db 'ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼æ•°ãƒšãƒŠãƒ«ãƒ†ã‚£ï¼ˆåˆæœŸï¼”äººï¼‰Ã—ã€€ï¼ï¼Žï¼—',0
+aPENALTY_CONT_1	db 'ã‚³ãƒ³ãƒ†ã‚£ãƒ‹ãƒ¥ãƒ¼ãƒšãƒŠãƒ«ãƒ†ã‚£ï¼ˆï¼‘å›žï¼‰ã€€Ã—ã€€ï¼ï¼Žï¼˜',0
+aPENALTY_CONT_2	db 'ã‚³ãƒ³ãƒ†ã‚£ãƒ‹ãƒ¥ãƒ¼ãƒšãƒŠãƒ«ãƒ†ã‚£ï¼ˆï¼’å›žï¼‰ã€€Ã—ã€€ï¼ï¼Žï¼–',0
+aPENALTY_CONT_3	db 'ã‚³ãƒ³ãƒ†ã‚£ãƒ‹ãƒ¥ãƒ¼ãƒšãƒŠãƒ«ãƒ†ã‚£ï¼ˆï¼“å›žï¼‰ã€€Ã—ã€€ï¼ï¼Žï¼”',0
+aBONUS_EASY	db 'é›£æ˜“åº¦ãƒœãƒ¼ãƒŠã‚¹ï¼ˆï¼¥ï½ï½“ï½™ï¼‰ã€€ã€€ã€€ã€€Ã—ã€€ï¼ï¼Žï¼•',0
+aBONUS_NORMAL	db 'é›£æ˜“åº¦ãƒœãƒ¼ãƒŠã‚¹ï¼ˆï¼®ï½ï½’ï½ï½ï½Œï¼‰ã€€ã€€Ã—ã€€ï¼‘ï¼Žï¼',0
+aBONUS_HARD	db 'é›£æ˜“åº¦ãƒœãƒ¼ãƒŠã‚¹ï¼ˆï¼¨ï½ï½’ï½„ï¼‰ã€€ã€€ã€€ã€€Ã—ã€€ï¼‘ï¼Žï¼’',0
+aBONUS_LUNATIC	db 'é›£æ˜“åº¦ãƒœãƒ¼ãƒŠã‚¹ï¼ˆï¼¬ï½•ï½Žï½ï½”ï½‰ï½ƒï¼‰ã€€Ã—ã€€ï¼‘ï¼Žï¼”',0
+aBONUS_STAGE	db 'ï¼³ï¼´ï¼¡ï¼§ï¼¥ã€€ï¼¢ï½ï½Žï½•ï½“',0
+aBONUS_DREAM	db 'ï¼¤ï¼²ï¼¥ï¼¡ï¼­ã€€ï¼¢ï½ï½Žï½•ï½“',0
+aGRAZEX50	db 'ã‚«ã‚¹ãƒªå¼¾æ•°ã€€Ã—ã€€ã€€ï¼•ï¼',0
+aPOINT_ITEMS	db 'ã€€Ã—ã€€å¾—ç‚¹ã‚¢ã‚¤ãƒ†ãƒ æ•°ã€€',0
+aBONUS_NOMISS	db 'ã€€ï¼‹ã€€ãƒŽãƒ¼ãƒŸã‚¹ãƒœãƒ¼ãƒŠã‚¹',0
+aBONUS_NOBOMB	db 'ã€€ï¼‹ã€€ãƒŽãƒ¼ãƒœãƒ ãƒœãƒ¼ãƒŠã‚¹',0
+aBONUS_TOTAL	db 'ã€€ã€€ã€€ï¼´ï¼¯ï¼´ï¼¡ï¼¬',0
+aALL_CLEAR	db 'ï¼¡ï¼¬ï¼¬ã€€ï¼£ï½Œï½…ï½ï½’ã€€ã€€',0
+aPLAYER_REM	db 'æ®‹ã‚Šäººæ•°ã€€Ã—ï¼‘ï¼ï¼ï¼ï¼',0
+aPOINT_TOTAL	db 'ç·å¾—ç‚¹ã‚¢ã‚¤ãƒ†ãƒ ãƒœãƒ¼ãƒŠã‚¹',0
 include th05/main/boss/move[data].asm
 include th05/main/item/enemy_drops[data].asm
 include th04/main/item/items[data].asm
@@ -19701,8 +19698,8 @@ byte_22720	db 0
 include th05/main/hud/dream[data].asm
 include th02/main/hud/power[data].asm
 include th04/main/hud/hp[data].asm
-aB@b@bB@b@	db '@@~@@',0
-aB@b@bB@b@_0	db '@@~@@',0
+aB@b@bB@b@	db 'ã€€ã€€Ã—ã€€ã€€',0
+aB@b@bB@b@_0	db 'ã€€ã€€Ã—ã€€ã€€',0
 public _SARA_PATTERNS_PHASE_2_3
 _SARA_PATTERNS_PHASE_2_3 label word
 		dw offset @pattern_blue_curve_counterclockw$qv
@@ -19754,9 +19751,9 @@ off_227B0	dw offset mai_yuki_1AB1F
 		dw offset mai_yuki_1AA9B
 		dw offset sub_1A96A
 a_dm09_tx2	db '_DM09.TX2',0
-aTH05_10	db '^g‚Ì­—@` Crimson Dead!!',0
+aTH05_10	db 'çœŸç´…ã®å°‘å¥³ã€€ï½ž Crimson Dead!!',0
 a_dm08_tx2	db '_DM08.TX2',0
-aTH05_11	db '— Ø‚è‚Ì­—@` Judas Kiss',0
+aTH05_11	db 'è£åˆ‡ã‚Šã®å°‘å¥³ã€€ï½ž Judas Kiss',0
 off_22806	dw offset sub_1B557
 		dw offset sub_1B628
 off_2280A	dw offset sub_1B6C4
@@ -20058,7 +20055,7 @@ cheeto_template	equ <_custom_entities>
 cheeto_heads	equ <_custom_entities[1 * size cheeto_head_t]>
 ; --------------
 
-; Mai's and Yuki's 32~32 balls
+; Mai's and Yuki's 32Ã—32 balls
 ; ----------------------------
 B4BALL_COUNT = 63
 B4BALL_W = 32
@@ -20104,7 +20101,7 @@ sword_template	equ <_custom_entities>
 swords	equ <_custom_entities[1 * size sword_t]>
 ; ---------------
 
-; Shinki's 32~32 balls
+; Shinki's 32Ã—32 balls
 ; --------------------
 B6BALL_COUNT = 63
 B6BALL_W = 32
