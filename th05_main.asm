@@ -9301,10 +9301,7 @@ loc_1721C:
 
 loc_1722E:
 		cmp	_items_pull_to_player, 0
-		jnz	short loc_17239
-		cmp	[si+item_t.pulled_to_player], 0
-		jz	short loc_17279
-
+		jz	short loc_17264
 loc_17239:
 		mov	_pointnum_times_2, 1
 		mov	[si+item_t.pulled_to_player], 1
@@ -9320,6 +9317,11 @@ loc_17239:
 		call	vector2_near pascal, ax, word ptr [bp+@@angle], (ITEM_PULL_SPEED shl 4)
 		jmp	short loc_17279
 ; ---------------------------------------------------------------------------
+
+loc_17264:
+		cmp	[si+item_t.pulled_to_player], 0
+		jz	short loc_17279
+		jmp	short loc_17239
 
 loc_17279:
 		lea	ax, [si+item_t.pos]
