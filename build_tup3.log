@@ -1,0 +1,15 @@
+[ tup ] [0.001s] Scanning filesystem...
+[ tup ] [0.039s] Reading in new environment variables...
+[ tup ] [0.039s] No Tupfiles to parse.
+[ tup ] [0.039s] No files to delete.
+[ tup ] [0.040s] Executing Commands...
+  30% 3) [0.629s] tasm32 /m /mx /kh32768 /t /dGAME=5 th05_main.asm obj\th05\main.obj
+  61% 2) [0.643s] tasm32 /m /mx /kh32768 /t /dGAME=4 th04_main.asm obj\th04\main.obj
+  79% 1) [0.408s] bin\msdos -e -x tlink @obj\th04\main.@l
+Turbo Link  Version 6.10 Copyright (c) 1992, 1993, 1994 Borland International
+ 100% 0) [0.454s] bin\msdos -e -x tlink @obj\th05\main.@l
+Turbo Link  Version 6.10 Copyright (c) 1992, 1993, 1994 Borland International
+[ tup ] [1.132s] Updated.
+Done. Find the executables in the bin\ subdirectory.
+-------------------------------------------------------------------------------
+BUILD_RC=0 

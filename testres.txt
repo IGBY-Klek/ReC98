@@ -1,0 +1,13 @@
+sprite 238: 1-bits=74
+sprite 239: 1-bits=0
+sprite 240: 1-bits=73
+sprite 241: 1-bits=115
+sprite 242: 1-bits=102
+sprite 243: 1-bits=129
+sprite 244: 1-bits=109
+sprite 245: 1-bits=52
+sprite 246: 1-bits=89
+sprite 247: 1-bits=256  <<< SOLID
+sprite 248: 1-bits=0
+sprite 249: 1-bits=0
+sprite 250: 1-bits=0

@@ -1,0 +1,5 @@
+changed sprites (orig -> mark2):
+sprite 1: 32 -> 256
+sprite 208: 90 -> 103
+sprite 224: 81 -> 240
+sprite 241: 115 -> 256
