@@ -122,6 +122,6 @@ All gameplay modifications are original work layered on top of the ReC98 source;
 
 **IGBY-Klek** — Keunakhan@outlook.com
 
-仓库:https://github.com/IGBY-Klek/ReC98(分支 `main`)
+仓库:https://github.com/IGBY-Klek/ReC98 (分支 `main`)
 
 所有玩法修改均为叠加于 ReC98 源码之上的原创工作;基础代码适用上游 ReC98 许可证。
