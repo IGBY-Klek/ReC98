@@ -9,3 +9,13 @@ tup-generate.vardict
 # Converted sprites
 *.[ac]sp
 *.[AC]SP
+
+# Build logs & temp listing files
+build_*.log
+*.LST
+*.lst
+TH04_fixed*.DAT
+TH04.DAT
+main_pad*.exe
+main_good*.exe
+zuninit_str.txt
