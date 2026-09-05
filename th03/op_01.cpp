@@ -839,7 +839,9 @@ void main(void)
 
 	// ZUN landmine: There are no known issues with running the game at a GDC
 	// clock speed of 5 MHz, so there's no need to enforce it here.
-	if(graph_VramZoom) {
+	// [MOD] The warning block has been removed entirely: the game plays fine
+	// on emulators that run the GDC at 5 MHz (e.g. Neko Project 21).
+	if(false && graph_VramZoom) {
 		dos_puts2(ERROR_GDC_5MHZ_1);
 		dos_puts2(ERROR_GDC_5MHZ_2);
 		dos_puts2(ERROR_GDC_5MHZ_3);

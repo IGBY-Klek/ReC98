@@ -26,11 +26,19 @@ All modifications are compiled from the ReC98 sources in this repository and are
 | **Hitbox shrunk to center ±3** | Player collision box narrowed (2 checks in `bullet.cpp` / `player.cpp`). |
 | **Hitbox display on Shift** | While Shift is held, the hitbox is shown as the smallest bullet cel (`PAT_BULLET16_BALL`). |
 | **Shottype screen: Esc returns to the main menu** | `shottype_menu()` returns `false` on Esc; returning to the main menu re-uses the OP background loading logic (menu backdrop restored with `PaletteTone = 100` first, `pi_free()` moved to the confirm path only). |
+| **Shottype screen localized to Traditional Chinese** | The character-select texts (`th02/shiftjis/m_char.cpp`: the three fight-style descriptions, the prompt and the Extra note) are replaced with the Traditional Chinese wording of the classic fan translation (`請從下面三個選項中，選擇靈夢的戰鬥風格齷` etc.), using only Shift-JIS code points present in the PC-98 font ROM. |
 | **Quitting no longer shows the scoreboard / continue screen** | Esc in the pause menu sets `resident.unused_1`; `_main` skips the game-over flow and `execl`s straight back to the OP. |
 | **Point-of-collection** (TH04/TH05 style: top quarter of the playfield, or while bombing) | Implemented with **zero added global state**: the per-item `age` field doubles as the pull latch (1 = pulled), and the pull condition is a function-local flag. Pulled items home in on the player center at 7 px/frame. |
 | **FPS counter** (bottom-left, row 23) | Same design as TH04/TH05, but the state lives in the two unused bytes of `_scroll_unused`, and the label is rendered in **full-width SJIS glyphs** (`００.００ ＦＰＳ`) — see the technical notes below. |
 | **Pause menu: Traditional Chinese + "restart"** | The pause menu is now `暫停 / 繼續遊戲 / 從頭開始 / 結束遊戲`, with the original fan-translation confirm lines (`真的～要結束遊戲龜? / 騙齶的齬,不退不退。 / 是真的黷,退齷退齷。`). Selecting 從頭開始 sets `resident.unused_2` (1 = normal, 2 = Extra, detected via `_stage_id == 5`) and leaves through the regular manual-quit flow; the OP's main loop spots the marker and auto-starts a new run via `start_game_auto()` / `start_extra_auto()`, keeping the current shottype and options. |
 | **Link fix: `vector2()` made far** | The byte-exact near-call hack in `spark.cpp` overflows once the code grows; the function is now called through the regular (far) declaration. |
+
+## TH03 (夢時空)
+
+| Feature | Implementation |
+|---|---|
+| **GDC 5 MHz gate removed** | The OP used to abort on emulators whose GDC runs at 5 MHz (`graph_VramZoom`, e.g. Neko Project 21) with the `ＧＤＣクロックが５ＭＨｚ` warning. ReC98 itself notes that there are no known issues at 5 MHz, so the guard is now disabled and the game runs normally. |
+| **Startup warnings localized** | The GDC-clock warning and the out-of-memory notice (`th03/shiftjis/main.hpp`) are translated to Traditional Chinese, still in full-width glyphs like the original rendering: `ＧＤＣ時鐘目前為５ＭＨｚ。` and `記憶體不足。請增加可用記憶體後，再執行。` |
 
 ## Technical notes for maintainers (hard-won lessons)
 
@@ -92,11 +100,19 @@ All gameplay modifications are original work layered on top of the ReC98 source;
 | **判定框缩小至中心 ±3** | 自机碰撞框收窄(`bullet.cpp` / `player.cpp` 两处判断)。 |
 | **按住 Shift 显示判定点** | 按住 Shift 时以最小子弹 cel(`PAT_BULLET16_BALL`)显示判定点。 |
 | **选人界面:Esc 返回主菜单** | `shottype_menu()` 在 Esc 时返回 `false`;返回主菜单复用 OP 背景加载逻辑(恢复背景前先将 `PaletteTone = 100`,`pi_free()` 仅保留在确认路径)。 |
+| **选人界面繁体汉化** | 选人界面文本(`th02/shiftjis/m_char.cpp`:三种战斗风格介绍、提示行与 Extra 说明)已替换为民间汉化版的繁体中文文案(`請從下面三個選項中，選擇靈夢的戰鬥風格齷` 等),仅使用 PC-98 字库中存在的 Shift-JIS 码位。 |
 | **退出游戏不再显示计分板 / 续关界面** | 暂停菜单按 Esc 设置 `resident.unused_1`;`_main` 跳过游戏结束流程直接 `execl` 回 OP。 |
 | **收点**(TH04/TH05 式:画面顶部四分之一,或放炸弹期间)| 以**零新增全局状态**实现:道具自身的 `age` 字段兼作吸附锁存(1 = 被吸附),吸附条件为函数局部变量。被吸附道具以 7 像素/帧的速度直线飞向自机中心。 |
 | **FPS 计数器**(左下角,第 23 行)| 设计与 TH04/TH05 相同,但状态存放在 `_scroll_unused` 的两个未用字节中,且文字以**全角 SJIS 字形**(`００.００ ＦＰＳ`)绘制 —— 原因见下文技术笔记。 |
 | **暂停菜单:繁体中文 + "重新开始"** | 暂停菜单现为 `暫停 / 繼續遊戲 / 從頭開始 / 結束遊戲`,确认框沿用民间汉化版原句(`真的～要結束遊戲龜? / 騙齶的齬,不退不退。 / 是真的黷,退齷退齷。`)。选择 從頭開始 会设置 `resident.unused_2`(1 = 主线,2 = Extra,以 `_stage_id == 5` 判定)并走常规手动退出流程;OP 主循环发现标记后经 `start_game_auto()` / `start_extra_auto()` 自动开始新一局,保留当前角色与选项。 |
 | **链接修复:`vector2()` 改为 far** | `spark.cpp` 中逐字节精确的 near 调用在代码增长后会溢出;该函数现通过常规(far)声明调用。 |
+
+### TH03(夢時空)
+
+| 功能 | 实现 |
+|---|---|
+| **移除 GDC 5MHz 门禁** | 原版 OP 在 GDC 时钟为 5MHz 的模拟器(`graph_VramZoom`,如 Neko Project 21)上会中止并显示 `ＧＤＣクロックが５ＭＨｚ` 警告。ReC98 注释本身说明 5MHz 下没有已知问题,故已禁用该拦截,游戏可正常运行。 |
+| **启动警告汉化** | GDC 时钟警告与内存不足提示(`th03/shiftjis/main.hpp`)已译为繁体中文,并保持原版的全角字形渲染:`ＧＤＣ時鐘目前為５ＭＨｚ。` 与 `記憶體不足。請增加可用記憶體後，再執行。` |
 
 ### 维护者技术笔记(来之不易的教训)
 
