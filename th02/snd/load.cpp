@@ -33,8 +33,13 @@ void snd_load(const char fn[PF_FN_LEN], snd_load_func_t func)
 	(char near *)(_DX) = snd_load_fn;
 	_AX = 0x3D00;
 	geninterrupt(0x21);
+	if(_FLAGS & 1) {
+		// [MOD] Open failed; bail out instead of feeding the error code to
+		// the sound driver as a file handle.
+		_asm { pop ds; }
+		return;
+	}
 	_BX = _AX;
-	// ZUN landmine: No error handling
 
 	asm { mov	ax, func; }
 	if((_AX == SND_LOAD_SONG) && snd_midi_active) {

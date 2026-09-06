@@ -42,7 +42,9 @@ void near cfg_load(void)
 	if(resident->cfg_bombs > CFG_BOMBS_MAX) {
 		resident->cfg_bombs = CFG_BOMBS_MAX;
 	}
-	if(resident->bgm_mode >= SND_BGM_MODE_COUNT) {
+	// [MOD] Allow the MIDI mode (= 3) to persist; original ZUN code
+	// treated it as out-of-range and reset it to OFF.
+	if((resident->bgm_mode > SND_BGM_MIDI) || (resident->bgm_mode < SND_BGM_OFF)) {
 		resident->bgm_mode = SND_BGM_OFF;
 	}
 	if(resident->se_mode >= SND_SE_MODE_COUNT) {

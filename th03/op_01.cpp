@@ -120,6 +120,10 @@ void near cfg_load(void)
 	cfg_load_and_set_resident(cfg, CFG_FN_CAPS);
 
 	resident->bgm_mode = cfg.opts.bgm_mode;
+	// [MOD] MIDI support: only meaningful if the MMD driver is resident.
+	if(cfg.opts.bgm_mode == SND_BGM_MIDI) {
+		snd_midi_active = snd_midi_possible;
+	}
 	snd_determine_mode();
 	snd_sel_disabled = false;
 	if(!snd_active) {
@@ -746,15 +750,20 @@ void near main_update_and_render(void)
 
 #define snd_flip() { \
 	if(!snd_sel_disabled) { \
+		snd_kaja_func(KAJA_SONG_STOP, 0); \
 		if(resident->bgm_mode == SND_BGM_OFF) { \
 			resident->bgm_mode = SND_BGM_FM; \
-			snd_kaja_func(KAJA_SONG_STOP, 0); \
-			snd_determine_mode(); \
-			snd_kaja_func(KAJA_SONG_PLAY, 0); \
+			snd_midi_active = false; \
+		} else if(resident->bgm_mode == SND_BGM_FM) { \
+			resident->bgm_mode = SND_BGM_MIDI; \
+			snd_midi_active = snd_midi_possible; \
 		} else { \
 			resident->bgm_mode = SND_BGM_OFF; \
-			snd_kaja_func(KAJA_SONG_STOP, 0); \
 			snd_active = false; \
+		} \
+		snd_determine_mode(); \
+		if(resident->bgm_mode != SND_BGM_OFF) { \
+			snd_kaja_func(KAJA_SONG_PLAY, 0); \
 		} \
 		/* ZUN bloat: Already done at the call site. */ \
 		option_choice_put(menu_sel, TX_WHITE); \
@@ -831,6 +840,11 @@ void near option_update_and_render(void)
 	#undef input_allowed
 }
 
+// [MOD] MIDI driver presence checks (declared in th02/snd/snd.h, which
+// cannot be included here a second time).
+bool16 snd_pmd_resident(void);
+extern "C" bool16 snd_mmd_resident(void);
+
 void main(void)
 {
 	graph_400line();
@@ -857,6 +871,12 @@ void main(void)
 
 	gaiji_backup();
 	gaiji_entry_bfnt(GAIJI_FN);
+	// [MOD] Restored MIDI support: detect the PMD and MMD drivers (if any)
+	// before loading the config, so that [snd_midi_possible] is known when
+	// cfg_load() decides between FM and MIDI.
+	if(snd_pmd_resident()) {
+		snd_mmd_resident();
+	}
 	cfg_load();
 	if((resident->game_mode >= GM_VS) && (resident->demo_num == 0)) {
 		select_cdg_load_part1_of_4();

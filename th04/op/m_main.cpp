@@ -165,7 +165,7 @@ void pascal near main_unput_and_put(int sel, vc2 col)
 	switch(sel) {
 	case MC_GAME:
 		command_put(main_choice_top(MC_GAME), CDG_MAIN_GAME);
-		desc_id = (22 + resident->rank);
+		desc_id = (23 + resident->rank);
 		break;
 	case MC_EXTRA:
 		if(!extra_unlocked) {
@@ -242,7 +242,7 @@ void pascal near option_unput_and_put(int sel, vc2 col)
 			: (CDG_OPTION_VALUE_SE_FM + SND_SE_FM - resident->se_mode)
 		);
 		option_value_put(OC_SE, cdg_value);
-		desc_id = (15 + resident->se_mode);
+		desc_id = (16 + resident->se_mode);
 		break;
 	case OC_TURBO_OR_SLOW:
 		command_put(
@@ -250,17 +250,17 @@ void pascal near option_unput_and_put(int sel, vc2 col)
 			(CDG_OPTION_SLOW - resident->turbo_mode)
 		);
 		cursor_left_left = COMMAND_CURSOR_LEFT_LEFT;
-		desc_id = (18 + resident->turbo_mode);
+		desc_id = (19 + resident->turbo_mode);
 		break;
 	case OC_RESET:
 		command_put(option_choice_top(OC_RESET), CDG_OPTION_RESET);
 		cursor_left_left = COMMAND_CURSOR_LEFT_LEFT;
-		desc_id = 20;
+		desc_id = 21;
 		break;
 	case OC_QUIT:
 		command_put(option_choice_top(OC_QUIT), CDG_QUIT);
 		cursor_left_left = COMMAND_CURSOR_LEFT_LEFT;
-		desc_id = 21;
+		desc_id = 22;
 		break;
 	}
 	grcg_off();
@@ -498,7 +498,7 @@ void near option_update_and_render(void)
 			ring_inc_range(resident->cfg_bombs, 0, CFG_BOMBS_MAX);
 			break;
 		case OC_BGM:
-			ring_inc_ge_range(resident->bgm_mode, SND_BGM_OFF, SND_BGM_FM86);
+			ring_inc_ge_range(resident->bgm_mode, SND_BGM_OFF, SND_BGM_MIDI);
 			snd_redetermine_modes_and_restart_bgm(false);
 			break;
 		case OC_SE:
@@ -535,7 +535,7 @@ void near option_update_and_render(void)
 		case OC_BGM:
 			// ZUN bloat: Come on...
 			if(resident->bgm_mode == SND_BGM_OFF) {
-				resident->bgm_mode = SND_BGM_FM86;
+				resident->bgm_mode = SND_BGM_MIDI;
 			} else {
 				resident->bgm_mode--;
 			}

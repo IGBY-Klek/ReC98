@@ -85,7 +85,31 @@ void pascal snd_load(const char fn[PF_FN_LEN], snd_load_func_t func)
 		if(_AX != ENOFILE) {
 			return;
 		}
-		ext = *reinterpret_cast<const int32_t *>(SND_LOAD_EXT[SND_BGM_FM26]);
+		// [MOD] TH05 data files contain no .MMD songs: fall back to the .M86
+		// version of the same song, then .M26. (Original ZUN code only tried
+		// .M26 once and then looped forever if that failed too.)
+		if(snd_bgm_mode == SND_BGM_MIDI) {
+			if(ext == *reinterpret_cast<const int32_t *>(SND_LOAD_EXT[SND_BGM_MIDI])) {
+				ext = *reinterpret_cast<const int32_t *>(SND_LOAD_EXT[SND_BGM_FM86]);
+			} else if(ext == *reinterpret_cast<const int32_t *>(SND_LOAD_EXT[SND_BGM_FM86])) {
+				ext = *reinterpret_cast<const int32_t *>(SND_LOAD_EXT[SND_BGM_FM26]);
+			} else {
+				return;
+			}
+		} else {
+			return;
+		}
+	}
+	// [MOD] If we fell back from .MMD to an FM file, downgrade the BGM mode
+	// so that the song data is read through PMD instead of MMD (which would
+	// play the FM data as garbage), and later songs load the FM version
+	// directly.
+	if(snd_bgm_mode == SND_BGM_MIDI) {
+		if(ext == *reinterpret_cast<const int32_t *>(SND_LOAD_EXT[SND_BGM_FM86])) {
+			snd_bgm_mode = SND_BGM_FM86;
+		} else if(ext == *reinterpret_cast<const int32_t *>(SND_LOAD_EXT[SND_BGM_FM26])) {
+			snd_bgm_mode = SND_BGM_FM26;
+		}
 	}
 
 	_BX = _AX;

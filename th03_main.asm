@@ -163,11 +163,19 @@ _envp		= dword	ptr  0Ch
 		call	@game_init_main$qnxuc pascal, ds, offset aCOul
 		call	@cfg_load_resident_ptr$qv
 		or	ax, ax
-		jz	short @@ret
-		mov	_snd_midi_active, 0
+		jnz	short @@cfg_ok
+		jmp	@@ret
+@@cfg_ok:
 		les	bx, _resident
 		cmp	es:[bx+resident_t.bgm_mode], SND_BGM_OFF
 		jz	short loc_970F
+		cmp	es:[bx+resident_t.bgm_mode], SND_BGM_MIDI
+		jz	short @@midi
+		mov	_snd_midi_active, 0
+		jmp	short @@det
+@@midi:
+		call	_snd_mmd_resident
+@@det:
 		call	_snd_determine_mode
 
 loc_970F:
@@ -7858,7 +7866,8 @@ P_SHOT_TEXT ends
 ; ===========================================================================
 
 SHARED	segment	word public 'CODE' use16
-	extern _snd_determine_mode:proc
+	extern _snd_mmd_resident:proc
+extern _snd_determine_mode:proc
 	extern VECTOR2:proc
 	extern VECTOR2_BETWEEN_PLUS:proc
 	extern @game_exit$qv:proc

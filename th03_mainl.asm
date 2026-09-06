@@ -740,10 +740,16 @@ _envp		= dword	ptr  0Ch
 		jz	@@ret
 		call	@game_init_main$qnxuc pascal, ds, offset aCOul
 		call	respal_exist
-		mov	_snd_midi_active, 0
 		les	bx, _resident
 		cmp	es:[bx+resident_t.bgm_mode], SND_BGM_OFF
 		jz	short loc_9DAD
+		cmp	es:[bx+resident_t.bgm_mode], SND_BGM_MIDI
+		jz	short @@midi
+		mov	_snd_midi_active, 0
+		jmp	short @@det
+@@midi:
+		call	_snd_mmd_resident
+@@det:
 		call	_snd_determine_mode
 
 loc_9DAD:
@@ -2414,7 +2420,8 @@ mainl_03_TEXT	ends
 
 SHARED	segment	word public 'CODE' use16
 include th02/snd/snd.inc
-	extern _snd_determine_mode:proc
+	extern _snd_mmd_resident:proc
+extern _snd_determine_mode:proc
 	extern _snd_delay_until_volume:proc
 	extern _snd_load:proc
 	extern VECTOR2:proc
