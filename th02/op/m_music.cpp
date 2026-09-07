@@ -839,7 +839,6 @@ void MUSICROOM_DISTANCE musicroom_menu(void)
 		// the loop clearly defined its update and render steps. Especially
 		// since it does want to render the polygon animation every frame.
 		while(1) {
-			music_input_sense();
 			if(!key_det) {
 				break;
 			}

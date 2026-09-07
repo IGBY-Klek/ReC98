@@ -52,8 +52,33 @@ void snd_load(const char fn[PF_FN_LEN], snd_load_func_t func)
 	_AX = 0x3F00;
 	_CX = snd_load_size();
 	geninterrupt(0x21);
+	unsigned int buf_seg = _DS;
+	unsigned int buf_off = _DX;
 
 	_asm { pop ds; }
+
+	// [DBG] dump the song data of the first MIDI song to a file
+	if((func == SND_LOAD_SONG) && snd_midi_active) {
+		static char dumpfn[] = "D:\\\\MMD_DUMP.MMD";
+		static char dumped = 0;
+		if(!dumped) {
+			dumped = 1;
+			_asm { push ds; }
+			_AH = 0x3C; _CX = 0;
+			(char near *)(_DX) = dumpfn;
+			geninterrupt(0x21);
+			if(!(_FLAGS & 1)) {
+				_BX = _AX;
+				_AH = 0x40;
+				_CX = snd_load_size();
+				_DS = buf_seg; _DX = buf_off;
+				geninterrupt(0x21);
+				_AH = 0x3E;
+				geninterrupt(0x21);
+			}
+			_asm { pop ds; }
+		}
+	}
 
 	// DOS file close
 	_AH = 0x3E;
